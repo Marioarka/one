@@ -23,7 +23,7 @@
         </div>
     @endif
   
-    <form action="{{ route('crud.update',$crud->id) }}" method="POST">
+    <form action="{{ route('crud.update',$crud->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
    
@@ -43,7 +43,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <strong>Foto:</strong>
-                    <input type="file" class="form-control"  name="foto" placeholder="Foto">
+                    <input type="file" class="form-control"  name="foto" value="{{$crud->foto}}" accept="image/*">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">

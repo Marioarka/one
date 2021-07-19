@@ -28,7 +28,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Foto:</strong>
-                {{ $crud->foto }}
+                <img src="{{ $crud->foto }}" alt="image">
             </div>
         </div>
     </div>

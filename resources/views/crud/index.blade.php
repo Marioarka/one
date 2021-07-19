@@ -18,7 +18,7 @@
         </div>
     @endif
    
-    <table class="table table-bordered">
+    <table class="table table-responsive table-bordered">
         <tr>
             <th>No</th>
             <th>Nombre Escritor</th>
@@ -32,8 +32,8 @@
         <tr>
             <td>{{ ++$i }}</td>
             <td>{{ $value->nombreEscritor }}</td>
-            <td>{{ \Str::limit($value->articulosEscritos, 100) }}</td>
-            <td>{{ $value->foto }}</td>
+            <td>{{ $value->articulosEscritos}}</td>
+            <td><img src="{{ $value->foto }}" alt="image"></td>
             <td>
                 @if(@Auth::user()->hasRole('Administrador'))
                 <form action="{{ route('crud.destroy',$value->id) }}" method="POST">   

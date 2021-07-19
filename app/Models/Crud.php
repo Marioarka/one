@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Crud extends Model
 {
     use HasFactory;
+    protected $table='crud';
+    
     protected $fillable =[
         'nombreEscritor','articulosEscritos','foto'
     ];

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Crud;
+use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Request;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Support\Facades\Storage;
 
 class CrudController extends Controller
 {
@@ -43,14 +45,23 @@ class CrudController extends Controller
     public function store(Request $request)
     {
         //
-        $request->validate([
-            'nombreEscritor' => 'required',
-            'articulosEscritos' => 'required',
-            'foto',
-        ]);
-        Crud::create($request->all());
-        return redirect()->route('crud.index')
-                                ->with('success','Se Agrego un escritor');
+    //   return 
+         $request->validate([
+             'nombreEscritor' => 'required',
+             'articulosEscritos' => 'required',
+             'foto'=> 'required|image'
+         ]);
+         $image = $request->file('foto')->store('public/image');
+         $url = Storage::url($image);
+         Crud::create([
+             'nombreEscritor' => $request->nombreEscritor,
+             'articulosEscritos' => $request->articulosEscritos,
+             'foto' => $url
+
+         ]);
+         
+         return redirect()->route('crud.index')
+                                 ->with('success','Se Agrego un escritor');
     }
 
     /**
@@ -90,12 +101,19 @@ class CrudController extends Controller
         $request->validate([
             'nombreEscritor' => 'required',
             'articulosEscritos' => 'required',
-            'foto' => 'required',
+            'foto'=> 'required|image'
         ]);
-        $crud->update($request->all());
+        $image = $request->file('foto')->store('public/image');
+        $url = Storage::url($image);
+        $crud->update([
+            'nombreEscritor' => $request->nombreEscritor,
+             'articulosEscritos' => $request->articulosEscritos,
+             'foto' => $url
+        ]);
         return redirect()->route('crud.index')
                         ->with('success','Se actualizo correctamente');
     }
+
 
     /**
      * Remove the specified resource from storage.
